@@ -1,0 +1,74 @@
+\documentclass[UTF8, scheme=plain]{article}
+\usepackage{ctex}
+% --- 核心數學套件 ---
+\usepackage{amsmath}   % 提供 aligned 環境
+\usepackage{amsfonts}  % 數學字體
+\usepackage{amssymb}   % 數學符號
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{float}
+
+% --- 加入這一行來修改圖表前綴 ---
+\renewcommand{\figurename}{圖} 
+\usepackage[UTF8]{ctex} 
+
+\begin{document}
+
+\section*{一個驚人的證明：$1+1=2$}
+
+$$\begin{aligned}
+& \text{求: } 1+1=?  \\
+&= \sin \frac{\pi}{2} + \cos 0 \\
+&= \sin x \bigg|_{0}^{\frac{\pi}{2}} + \cos x \bigg|_{\frac{\pi}{2}}^{0}\\
+&=\int_0^\frac{\pi}{2}\cos x\,dx+\int_\frac{\pi}{2}^0-\sin x\,dx \\
+&=\int_0^\frac{\pi}{2}(\sin x+\cos x)\,dx \\
+&=\int_0^\frac{\pi}{2}\sqrt{2}\sin (x+\frac{\pi}{4})\,dx \\
+&=-\sqrt2\cos(x+\frac{\pi}{4})\bigg|_{0}^{\frac{\pi}{2}}\\
+&=-\sqrt2\left(\cos\left(\frac{\pi}{2}+\frac{\pi}{4}\right)-\cos\frac{\pi}{4}\right)\\
+&=-\sqrt2\left(-\sin\frac{\pi}{4}-\cos\frac{\pi}{4}\right)\\
+&=\sqrt2\times\sqrt2\sin\left(\frac{\pi}{4}+\frac{\pi}{4}\right)\\
+&=2\sin\left(\frac{\pi}{4}(1+1)\right)\\
+&\text{Let } 1+1=x\\
+&x=2\sin\left(\frac{\pi}{4}x\right)\\
+&\text{圖像法解方程(見第二頁)}\\
+\end{aligned}$$
+% --- 插入圖片 (強行固定位置) ---
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            width=10cm, height=8cm, % 這裡可以調整大小
+            axis lines = middle,
+            xlabel = $x$, ylabel = $y$,
+            xmin = -3, xmax = 3,
+            ymin = -3, ymax = 3,
+            domain = -2.5:2.5,
+            samples = 100,
+            grid = both,
+            grid style = {dashed, gray!30},
+            legend pos = north west,
+            title={圖解 $x = 2\sin(\frac{\pi}{4}x)$}
+        ]
+            \addplot [thick, blue] {x};
+            \addlegendentry{$y=x$}
+            \addplot [thick, red, smooth] {2*sin(deg(pi/4*x))};
+            \addlegendentry{$y=2\sin(\frac{\pi}{4}x)$}
+            
+            % 標註交點
+            \filldraw [black] (axis cs:2,2) circle (2pt) node[anchor=south west] {$(2,2)$};
+            \filldraw [black] (axis cs:0,0) circle (2pt) node[anchor=north east] {$(0,0)$};
+            \filldraw [black] (axis cs:-2,-2) circle (2pt) node[anchor=north east] {$(-2,-2)$};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{利用圖像法確認實數解}
+\end{figure}
+\[ % 開啟數學模式
+\begin{aligned}
+&x=-2,0,2 \\
+&1+1=-2,0,2 \\
+&1+1 \geq 2\sqrt{1 \times 1}=2 \\
+&1+1=2_{\#}
+\end{aligned}
+\] % 閉合數學模式
+
+\end{document} % 這必須是文件的最後一行
